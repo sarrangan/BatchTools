@@ -1,3 +1,4 @@
+::This tool creates a menu type UI inside command prompt which is scroll-able using the W and S keys
 ::read the comments to figure out what parts to change inorder to use for your own purposes
 @echo off
 SETLOCAL EnableDelayedExpansion
