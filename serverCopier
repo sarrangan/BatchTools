@@ -8,7 +8,7 @@ echo Closing old connections...
 net use Z: /d
 echo Closed.
 :connect
-:: Set the user name and password here so you don't have to type it in again and again (remember to remove the "/p" if you do
+:: Hardcode the user name and password here if you don't want to type it in again and again (remember to remove the "/p" if you do)
 set /p userName=Enter User Name :
 set /P passWord=Enter password :
 echo.
