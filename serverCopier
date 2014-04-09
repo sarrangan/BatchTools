@@ -1,0 +1,42 @@
+::This tool is used to copy files from a remote machine to your local machine
+@echo off
+set /p ipAddress=What IP Address? 
+if EXIST "Z:\Program Files" goto deleteZ
+goto connect
+:deleteZ
+echo Closing old connections...
+net use Z: /d
+echo Closed.
+:connect
+:: Set the user name and password here so you don't have to type it in again and again (remember to remove the "/p" if you do
+set /p userName=Enter User Name :
+set /P passWord=Enter password :
+echo.
+echo Connecting to Server...
+net use Z: "\\%ipAddress%\c$" %passWord% /user:%userName%
+IF ERRORLEVEL 2 goto final
+
+echo Connected to Server.
+echo.
+:: You can change this to prompt for a fileName or specify your own
+set fileName=%ipAddress%
+
+mkdir %fileName%
+
+echo.
+echo Copying Files...
+:: Specify the file path of the file you wish to get from the server (everything after Z:\ can be changed)
+:: Use xcopy as many times as needed
+xcopy "Z:\Program Files\...\logs\*" %fileName% /q
+echo Finished copying files.
+goto final
+
+:final
+echo Disconnecting from Server...
+if EXIST "Z:\Program Files" goto deleteZ2
+goto end
+:deleteZ2
+net use Z: /delete 
+:end
+echo Disconnected.
+pause
